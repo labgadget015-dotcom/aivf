@@ -1,0 +1,19 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer"><title>TikTok connected — GadgetLab AI Video Factory</title><style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;max-width:720px;margin:40px auto;padding:0 20px;line-height:1.6;color:#1a1a1a}h1{font-size:1.8em}a{color:#0b6bcb}footer{margin-top:48px;font-size:.9em;color:#666}code{background:#f2f2f2;padding:2px 6px;border-radius:4px;word-break:break-all}</style>
+<style>button{font-size:1.1em;padding:12px 20px;border-radius:8px;border:0;background:#0b6bcb;color:#fff;cursor:pointer}#url{display:block;margin:16px 0;padding:12px}.ok{color:#137333}.err{color:#b3261e}</style></head><body>
+<h1 id="title">Almost done</h1>
+<p id="msg">Reading the response from TikTok…</p>
+<code id="url"></code>
+<button id="copy" hidden>📋 Copy</button> <span id="copied" class="ok" hidden>Copied — now paste it into the chat with Claude.</span>
+<footer>This page runs entirely in your browser and sends nothing anywhere. <a href="../privacy/">Privacy</a></footer>
+<script>
+const p = new URLSearchParams(location.search), url = document.getElementById('url'), msg = document.getElementById('msg'), btn = document.getElementById('copy');
+if (p.get('error')) {
+  document.getElementById('title').textContent = 'TikTok did not connect';
+  msg.innerHTML = '<span class="err">' + (p.get('error_description') || p.get('error')).replace(/[<>&]/g, '') + '</span>';
+} else if (p.get('code')) {
+  msg.textContent = '✅ TikTok approved the app. Copy the line below and paste it to Claude — it finishes the setup:';
+  url.textContent = location.href; btn.hidden = false;
+} else { msg.textContent = 'This page is only used during TikTok login. Nothing to do here.'; }
+btn.onclick = async () => { await navigator.clipboard.writeText(location.href); document.getElementById('copied').hidden = false; };
+</script></body></html>
